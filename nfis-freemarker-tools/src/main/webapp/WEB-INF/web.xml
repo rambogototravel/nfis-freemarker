@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <!--  -->
+    <listener>
+        <listener-class>org.rambo.nfis.listener.MapListener</listener-class>
+    </listener>
+
+    <!--  -->
+    <filter>
+        <filter-name>RewriteFilter</filter-name>
+        <filter-class>org.rambo.nfis.filter.RewriteFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>MockFilter</filter-name>
+        <filter-class>org.rambo.nfis.filter.MockFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>RewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>MockFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <!--  -->
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.rambo.nfis.servlet.DispatcherServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>*.ftl</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <servlet-class>org.rambo.nfis.servlet.Upload</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>upload</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+
+    <!--  -->
+    <welcome-file-list>
+        <welcome-file>page/index.ftl</welcome-file>
+        <!--<welcome-file>index.ftl</welcome-file>-->
+    </welcome-file-list>
+</web-app>
